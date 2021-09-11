@@ -121,7 +121,7 @@ public class Mlp extends NeuralNetwork {
             System.out.println("A rede precisa de treinamento, resultado não corresponde com o esperado");
             System.out.println("iniciando treinamento...");
             backpropagation();
-
+            sum();
         }
         System.out.println("Rede treinada!");
 
@@ -212,12 +212,24 @@ public class Mlp extends NeuralNetwork {
         while (auxConnectionsHidden < hidden.getNeuronsCount()) {
             System.out.println("Calculando novos pesos da saída até a oculta...");
             for (int i = 0; i < hidden.getNeurons().get(auxConnectionsHidden).getInputConnections().size(); i++) {
-                hidden.getNeurons().get(auxConnectionsHidden).getInputConnections().get(i).getWeight().setValue(newWeightCalc(hidden.getNeurons().get(auxConnectionsHidden).getInputConnections().get(i).getWeight().getValue(), deltaHW.get(auxConnectionsHidden)));
-                System.out.println("Valores dos novos pesos: " + input.getNeurons().get(auxConnectionsHidden).getInputConnections().get(i).getWeight().getValue());
+                hidden.getNeurons().get(auxConnectionsHidden).getInputConnections().get(i).getWeight().setValue(newWeightCalc(hidden.getNeurons().get(auxConnectionsHidden).getInputConnections().get(i).getWeight().getValue(), deltaOW.get(auxConnectionsHidden)));
+                System.out.println("Valores dos novos pesos: " + hidden.getNeurons().get(auxConnectionsHidden).getInputConnections().get(i).getWeight().getValue());
             }
+            System.out.println("auxConnectionsHidden: " + auxConnectionsHidden);
             auxConnectionsHidden++;
         }
-        System.exit(0);
+
+        auxConnectionsInput = 0;
+        while (auxConnectionsInput < input.getNeuronsCount()) {
+            System.out.println("Calculando novos pesos da oculta até a entrada...");
+            for (int i = 0; i < input.getNeurons().get(auxConnectionsInput).getInputConnections().size(); i++) {
+                input.getNeurons().get(auxConnectionsInput).getInputConnections().get(i).getWeight().setValue(newWeightCalc(input.getNeurons().get(auxConnectionsInput).getInputConnections().get(i).getWeight().getValue(), deltaHW.get(auxConnectionsInput)));
+                System.out.println("Valores dos novos pesos: " + input.getNeurons().get(auxConnectionsInput).getInputConnections().get(i).getWeight().getValue());
+            }
+            System.out.println("auxConnectionsInput: " + auxConnectionsInput);
+            auxConnectionsInput++;
+        }
+        //System.exit(0);
     }
 
     public double errorCalc(double t, double s) {
