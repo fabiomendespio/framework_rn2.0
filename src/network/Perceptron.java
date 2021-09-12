@@ -2,9 +2,10 @@ package network;
 
 import core.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Perceptron extends NeuralNetwork {
+public class Perceptron extends NeuralNetwork implements Serializable {
     private double bias = 0;
     private double predict = 0;
     private double error;

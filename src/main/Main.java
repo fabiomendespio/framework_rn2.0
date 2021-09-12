@@ -10,30 +10,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Execução de um MLP
-//        Neuron inputNeuron1 = new Neuron();
-//        inputNeuron1.setInput(1);
-//        Neuron inputNeuron2 = new Neuron();
-//        inputNeuron2.setInput(1);
-//        Neuron hidenNeuron1 = new Neuron();
-//        Neuron hidenNeuron2 = new Neuron();
-//        Neuron outputNeuron1 = new Neuron();
-//        inputNeuron1.addInputConnection(hidenNeuron1, 1);
-//        inputNeuron1.addInputConnection(hidenNeuron2, 1);
-//        inputNeuron2.addInputConnection(hidenNeuron1, 1);
-//        inputNeuron2.addInputConnection(hidenNeuron2, 1);
-//        hidenNeuron1.addInputConnection(outputNeuron1, 1);
-//        hidenNeuron2.addInputConnection(outputNeuron1, 1);
-//
-//        ArrayList<Neuron> neurons = new ArrayList<>();
-//        neurons.add(inputNeuron1);
-//        neurons.add(inputNeuron2);
-//        neurons.add(hidenNeuron1);
-//        neurons.add(hidenNeuron2);
-//        neurons.add(outputNeuron1);
-//
-//        Mlp mlpTest = new Mlp(neurons);
-
         //Perceptron
 //        NeuralNetwork nn = new Perceptron(0.1, 1, 0);
 //        nn.setStructure("input", 1, 4);

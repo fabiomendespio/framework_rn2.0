@@ -1,11 +1,12 @@
 package core;
 
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class NeuralNetwork {
+public class NeuralNetwork implements Serializable {
 
     private List<Layer> layers;
 
@@ -249,7 +250,7 @@ public class NeuralNetwork {
 
     }
 
-    public void sigmoidFunction(){
+    public void sigmoidFunction() {
 
     }
 
@@ -259,5 +260,61 @@ public class NeuralNetwork {
 
 
     public void connectNeuronIncludingWeigth(int weigthValue) {
+    }
+
+    public void save(String filePath) {
+
+        ObjectOutputStream oos = null;
+
+        try {
+            File file = new File(filePath);
+
+            oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            oos.writeObject(this);
+            oos.flush();
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado");
+        } catch (IOException e) {
+            System.out.println("Erro ao escrever a rede neural no arquivo");
+        } finally {
+            if (oos != null) {
+                try {
+                    oos.close();
+                    System.out.println("Arquivo salvo");
+                } catch (IOException e) {
+                    System.out.println("Erro ao fechar o aquivo");
+                }
+            }
+        }
+    }
+
+    public static NeuralNetwork load(String filePath) {
+
+        ObjectInputStream ois = null;
+
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                throw new FileNotFoundException("Arquivo não encontrado: " + filePath);
+            }
+            ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filePath)));
+            NeuralNetwork nn = (NeuralNetwork) ois.readObject();
+            return nn;
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Classe não encontrada");
+        } catch (IOException e) {
+            System.out.println("Erro ao ler aquivo");
+        } finally {
+            if (ois != null) {
+                try {
+                    ois.close();
+                    System.out.println("Arquivo carregado");
+                } catch (IOException e) {
+                    System.out.println("Erro ao fechar o aquivo");
+                }
+            }
+        }
+        return null;
     }
 }

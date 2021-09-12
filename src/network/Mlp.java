@@ -4,10 +4,11 @@ import core.Layer;
 import core.NeuralNetwork;
 import core.Neuron;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Mlp extends NeuralNetwork {
+public class Mlp extends NeuralNetwork implements Serializable {
     //    private ArrayList<Neuron> neurons;
 //    private double error;
     //    private double output;

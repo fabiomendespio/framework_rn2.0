@@ -1,8 +1,9 @@
 package core;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Connection {
+public class Connection implements Serializable {
 
     protected Neuron fromNeuron;
     protected Neuron toNeuron;

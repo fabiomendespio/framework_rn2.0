@@ -1,6 +1,8 @@
 package network;
 
-public class FunctionActivation {
+import java.io.Serializable;
+
+public class FunctionActivation implements Serializable {
 
     public static double sigmoid(double n) {
         System.out.println("Ativando a função Sigmoid");
