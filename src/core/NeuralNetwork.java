@@ -258,6 +258,10 @@ public class NeuralNetwork implements Serializable {
 
     }
 
+    public void training(){
+
+    }
+
 
     public void connectNeuronIncludingWeigth(int weigthValue) {
     }

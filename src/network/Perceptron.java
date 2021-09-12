@@ -121,6 +121,19 @@ public class Perceptron extends NeuralNetwork implements Serializable {
         System.out.println("Start Perceptron!!");
         output.getNeurons().get(0).setOutput(FunctionActivation.degrau(sum()));
         System.out.println("Valor do neurônio de saída: " + output.getNeurons().get(0).getOutput());
+        if (output.getNeurons().get(0).getOutput() == predict){
+            System.out.println("Valor da saída: " + output.getNeurons().get(0).getOutput());
+            System.out.println("Valor da predição: " + predict);
+        }else{
+            System.out.println("Valores não conferem");
+        }
+
+    }
+
+    public void training() {
+        System.out.println("Start Perceptron!!");
+        output.getNeurons().get(0).setOutput(FunctionActivation.degrau(sum()));
+        System.out.println("Valor do neurônio de saída: " + output.getNeurons().get(0).getOutput());
         while (output.getNeurons().get(0).getOutput() != predict) {
             System.out.println("A rede precisa de treinamento, resultado não corresponde com o esperado");
             System.out.println("iniciando treinamento...");
@@ -130,8 +143,6 @@ public class Perceptron extends NeuralNetwork implements Serializable {
         }
         System.out.println("Rede treinada! \nResultado final da saída: " + output.getNeurons().get(0).getOutput() + " Valor esperado: " + predict);
         checkNextSamples();
-
-
     }
 
     public double sum() {

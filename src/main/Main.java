@@ -11,26 +11,25 @@ public class Main {
     public static void main(String[] args) {
 
         //Perceptron
-        NeuralNetwork nn = new Perceptron(0.1, 1, 0);
-        nn.setStructure("input", 1, 2);
-        nn.setStructure("output", 1, 1);
-        double sample[] = {0, 1};
-//        double sample2[] = {1, 0};
-        ArrayList<double[]> list = new ArrayList<>();
-        list.add(0, sample);
-//        list.add(1, sample2);
-//        list.add(2, sample3);
-        nn.setInputValues(list);
-        nn.connectNeuronIncludingWeigth(0);
-        nn.start();
-//        nn.start();
+//        NeuralNetwork nn = new Perceptron(0.1, 1, 0);
+//        nn.setStructure("input", 1, 2);
+//        nn.setStructure("output", 1, 1);
+//        double sample[] = {0, 1};
+////        double sample2[] = {1, 0};
+//        ArrayList<double[]> list = new ArrayList<>();
+//        list.add(0, sample);
+////        list.add(1, sample2);
+////        list.add(2, sample3);
+//        nn.setInputValues(list);
+//        nn.connectNeuronIncludingWeigth(0);
+//        nn.training();
 //        nn.save("rede.rn");
-//        NeuralNetwork teste = NeuralNetwork.load("rede.rn");
-//        double sample3[] = {0, 1};
-//        ArrayList<double[]> list2 = new ArrayList<>();
-//        list2.add(0, sample3);
-//        teste.setInputValues(list2);
-//        teste.start();
+        NeuralNetwork teste = NeuralNetwork.load("rede.rn");
+        double sample3[] = {0, 1};
+        ArrayList<double[]> list2 = new ArrayList<>();
+        list2.add(0, sample3);
+        teste.setInputValues(list2);
+        teste.start();
 
 
         //MLP
