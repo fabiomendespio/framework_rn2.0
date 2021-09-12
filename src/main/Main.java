@@ -55,7 +55,7 @@ public class Main {
 //        nn.start();
 
         //MLP
-        NeuralNetwork nn2 = new Mlp(0.1, 2, 0);
+        NeuralNetwork nn2 = new Mlp(0.1, 0, 0);
         nn2.setStructure("input", 1, 2);
         nn2.setStructure("hidden", 1, 2);
         nn2.setStructure("output", 1, 1);
