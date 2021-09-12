@@ -24,37 +24,26 @@ public class Main {
 //        nn.connectNeuronIncludingWeigth(0);
 //        nn.training();
 //        nn.save("rede.rn");
-        NeuralNetwork teste = NeuralNetwork.load("rede.rn");
-        double sample3[] = {0, 1};
-        ArrayList<double[]> list2 = new ArrayList<>();
-        list2.add(0, sample3);
-        teste.setInputValues(list2);
-        teste.start();
-
-
-        //MLP
-//        NeuralNetwork nn2 = new Mlp(0.1, 0, 0);
-//        nn2.setStructure("input", 1, 2);
-//        nn2.setStructure("hidden", 1, 2);
-//        nn2.setStructure("output", 1, 1);
-//        double sample3[] = {0, 1};
-//        double sample4[] = {1, 0};
-//        ArrayList<double[]> list2 = new ArrayList<>();
-//        list2.add(0, sample3);
-//        list2.add(1, sample4);
-//        nn2.setInputValues(list2);
-        //Todo classificação dos pesos
-//        weightInput = [(x1w1= 0.5, x1w2= 1.5), (x2w3= 0.4, x2w4= 0.7), (x3w5= 0.2, x3w6= 0.8)];
-//        weightHidden = [(x4w7= 0.3, x4w8= 0.2), (x5w9= 0.1, x5w10= 0.5)];
-//        nn2.connectNeuronIncludingWeigth(1);
-//        nn2.start();
-//        nn2.save("rede.rn");
-
 //        NeuralNetwork teste = NeuralNetwork.load("rede.rn");
 //        double sample3[] = {0, 1};
 //        ArrayList<double[]> list2 = new ArrayList<>();
 //        list2.add(0, sample3);
 //        teste.setInputValues(list2);
 //        teste.start();
+
+
+        //MLP
+        NeuralNetwork nn2 = new Mlp(0.1, 0, 0);
+        nn2.setStructure("input", 1, 3);
+        nn2.setStructure("hidden", 1, 2);
+        nn2.setStructure("output", 1, 1);
+        double sample3[] = {0, 1, 0};
+        double sample4[] = {1, 0};
+        ArrayList<double[]> list2 = new ArrayList<>();
+        list2.add(0, sample3);
+        list2.add(1, sample4);
+        nn2.setInputValues(list2);
+        nn2.connectNeuronIncludingWeigth(1);
+        nn2.start();
     }
 }

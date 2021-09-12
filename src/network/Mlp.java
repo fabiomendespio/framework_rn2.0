@@ -194,7 +194,7 @@ public class Mlp extends NeuralNetwork implements Serializable {
         int auxConnectionsHidden = 0;
         while (auxConnectionsHidden < hidden.getNeuronsCount()) {
             for (int i = 0; i < hidden.getNeurons().get(auxConnectionsHidden).getInputConnections().size(); i++) {
-                deltaOW.add(i, deltaWeigthCalc(error, learningRate, hidden.getNeurons().get(i).getNetInput()));
+                deltaOW.add(i, deltaWeigthCalc(error, learningRate, hidden.getNeurons().get(auxConnectionsHidden).getNetInput()));
                 System.out.println("Valores inseridos dentro da lista deltaOW: " + deltaOW.get(i));
             }
             auxConnectionsHidden++;
@@ -203,7 +203,7 @@ public class Mlp extends NeuralNetwork implements Serializable {
         int auxConnectionsInput = 0;
         while (auxConnectionsInput < input.getNeuronsCount()) {
             for (int i = 0; i < input.getNeurons().get(auxConnectionsInput).getInputConnections().size(); i++) {
-                deltaHW.add(i, deltaWeigthCalc(error, learningRate, input.getNeurons().get(i).getNetInput()));
+                deltaHW.add(i, deltaWeigthCalc(error, learningRate, input.getNeurons().get(auxConnectionsInput).getNetInput()));
                 System.out.println("Valores inseridos dentro da lista deltaHW: " + deltaHW.get(i));
             }
             auxConnectionsInput++;
