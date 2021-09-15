@@ -113,7 +113,7 @@ public class Mlp extends NeuralNetwork implements Serializable {
     }
 
     @Override
-    public void start() {
+    public void training() {
         System.out.println("Start MLP!!!");
         System.out.println("Start sum...");
         sum();
@@ -126,6 +126,19 @@ public class Mlp extends NeuralNetwork implements Serializable {
         }
         System.out.println("Rede treinada!");
 
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Start MLP!!!");
+        sum();
+        for (int i = 0; i < output.getNeuronsCount(); i++) {
+            if (checkOutputs()) {
+                System.out.println("O neuronio de posição " + i + " retornou: " + output.getNeurons().get(i).getOutput() + " e o valor esperado é: " + predict + " (SUCESSO)");
+            } else {
+                System.out.println("O neuronio de posição " + i + " retornou: " + output.getNeurons().get(i).getOutput() + " e o valor esperado é: " + predict + " (FALHA)");
+            }
+        }
     }
 
     public void sum() {
