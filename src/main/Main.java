@@ -49,10 +49,11 @@ public class Main {
 //        nn2.save("rede-mlp.rn");
         //MLP start
         NeuralNetwork mlp = NeuralNetwork.load("rede-mlp.rn");
-        double sample3[] = {0, 1};
-        ArrayList<double[]> list2 = new ArrayList<>();
-        list2.add(0, sample3);
-        mlp.setInputValues(list2);
+        double input[] = {0, 1};
+        double input2[] = {0, 0};
+        ArrayList<double[]> inputs = new ArrayList<>();
+        inputs.add(0, input);
+        mlp.setInputValues(inputs);
         mlp.start();
 
         String teste =
