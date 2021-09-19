@@ -1,5 +1,8 @@
 package core;
 
+import network.Perceptron;
+import utils.Report;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -263,7 +266,7 @@ public class NeuralNetwork implements Serializable {
     }
 
 
-    public void connectNeuronIncludingWeigth(int weigthValue) {
+    public void connectNeuronIncludingWeigth(double weigthValue) {
     }
 
     public void save(String filePath) {
@@ -319,6 +322,18 @@ public class NeuralNetwork implements Serializable {
                 }
             }
         }
+        return null;
+    }
+
+    public void setFunctionActivation(String functionActivation) {
+
+    }
+
+    public Report getData() {
+        return null;
+    }
+
+    public ArrayList<Perceptron> getReports() {
         return null;
     }
 }

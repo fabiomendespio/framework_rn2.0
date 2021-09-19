@@ -88,7 +88,7 @@ public class Mlp extends NeuralNetwork implements Serializable {
     }
 
     @Override
-    public void connectNeuronIncludingWeigth(int weigthValue) {
+    public void connectNeuronIncludingWeigth(double weigthValue) {
         System.out.println("Conectando os neurônios");
         int i = 0;
         int k = 0;
