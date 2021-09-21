@@ -1,7 +1,6 @@
 package network;
 
 import core.*;
-import utils.Report;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class Perceptron extends NeuralNetwork implements Serializable {
     private int sampleCount = 0;
     private ArrayList<double[]> samples;
     //Variaveis auxiliares
-    int count = 1;
+    int samplesCount = 1;
 
     //Teste
 
@@ -45,7 +44,7 @@ public class Perceptron extends NeuralNetwork implements Serializable {
     //Report
     private ArrayList<Perceptron> reports = new ArrayList<>();
     private int iterationsCount = 0;
-    private int samplesCount;
+//    private int samplesCount;
 
     public Perceptron() {
 
@@ -138,15 +137,15 @@ public class Perceptron extends NeuralNetwork implements Serializable {
 
     public void checkNextSamples() {
         System.out.println("Checando próximas amostras...");
-        if (count != samples.size()) {
-            System.out.println("count: " + count + " samples size: " + samples.size());
+        if (samplesCount != samples.size()) {
+            System.out.println("count: " + samplesCount + " samples size: " + samples.size());
             System.out.println("Proximas amostras encontradas");
             System.out.println("Começando o treinamento!");
             sampleCount++;
             System.out.println("samples counter: " + sampleCount);
             setInputValues(samples);
             //connectNeuronIncludingWeigth(0); //Todo verificar os pesos
-            count++;
+            samplesCount++;
             training();
         } else {
             System.out.println("Não existe próximas camadas, treinamento finalizado!");
@@ -226,19 +225,26 @@ public class Perceptron extends NeuralNetwork implements Serializable {
 
     public void reportStart() {
         Perceptron pStart = new Perceptron();
-        setSumValue(sum());
-        setOutputValue(output.getNeurons().get(0).getOutput());
-        setErrorValue(error);
+        pStart.setSumValue(sum());
+        pStart.setOutputValue(output.getNeurons().get(0).getOutput());
+        pStart.setErrorValue(error);
+        pStart.setDeltaWeightsValues(deltaW);
+        pStart.setNewWeightsValues(newWeightsValues);
+        pStart.setDeltaBias(deltaB);
+        pStart.setNewBias(bias);
         reports.add(iterationsCount, pStart);
     }
 
     public void reportTraining() {
         Perceptron pTraining = new Perceptron();
+        pTraining.setSumValue(sum());
+        pTraining.setOutputValue(output.getNeurons().get(0).getOutput());
+        pTraining.setErrorValue(error);
+        pTraining.setDeltaWeightsValues(deltaW); //report
+        pTraining.setNewWeightsValues(newWeightsValues);
+        pTraining.setDeltaBias(deltaB);
+        pTraining.setNewBias(bias);
         //Demais iterações
-        setSumValue(sum());
-        setOutputValue(output.getNeurons().get(0).getOutput());
-        setErrorValue(error);
-        pTraining = this;
         iterationsCount++;
         reports.add(iterationsCount, pTraining);
         System.out.println("Numero de interações " + iterationsCount + " Tamanho do arraylist " + reports.size());

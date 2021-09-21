@@ -16,10 +16,10 @@ public class Main {
         nn.setStructure("output", 1, 1);
         nn.setFunctionActivation("Degrau");
         double sample[] = {0, 1};
-//        double sample2[] = {1, 0};
+        double sample2[] = {1, 0};
         ArrayList<double[]> list = new ArrayList<>();
         list.add(0, sample);
-//        list.add(1, sample2);
+        list.add(1, sample2);
 //        list.add(2, sample3);
         nn.setInputValues(list);
         nn.connectNeuronIncludingWeigth(0);
@@ -59,7 +59,8 @@ public class Main {
 
 
         //Teste do report
-        System.out.println("Teste dos dados: " + nn.getReports().get(0).getDeltaBias());
-        System.out.println("Teste dos dados: " + nn.getReports().get(1).getDeltaBias());
+        System.out.println("Teste dos dados: " + nn.getReports().get(0).getOutputValue());
+        System.out.println("Teste dos dados: " + nn.getReports().get(1).getOutputValue());
+        System.out.println("Teste dos dados: " + nn.getReports().get(2).getOutputValue());
     }
 }
