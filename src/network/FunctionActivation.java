@@ -6,16 +6,14 @@ public class FunctionActivation implements Serializable {
 
     public static double sigmoid(double n) {
         System.out.println("Ativando a função Sigmoid");
-        return 1 / (1 + Math.exp(-n));
+        return Math.floor((1 / (1 + Math.exp(-n))) * 100) / 100;
     }
 
     public static double degrau(double n) {
-        System.out.println("Ativando a função degrau");
-        if (n > 0) {
-            System.out.println("retorno da função degrau = 1");
+        System.out.println("Ativando a função degrau!!");
+        if (n >= 0) {
             return 1;
         } else {
-            System.out.println("retorno da função degrau = 0");
             return 0;
         }
     }

@@ -1,8 +1,10 @@
 package network;
 
 import core.*;
+import utils.FunctionActivationData;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Perceptron extends NeuralNetwork implements Serializable {
@@ -18,7 +20,9 @@ public class Perceptron extends NeuralNetwork implements Serializable {
     private int sampleCount = 0;
     private ArrayList<double[]> samples;
     //Variaveis auxiliares
-    int samplesCount = 1;
+    private int samplesCountAux = 1;
+    private int epoch = 0;
+    private int trainingCount = 0;
 
     //Teste
 
@@ -27,7 +31,7 @@ public class Perceptron extends NeuralNetwork implements Serializable {
     private String typeName = "Perceptron";
     private int numberLayer; //ok
     private int numberNeuron; //ok
-    private String functionActivation = "Degrau"; //Refatorar
+    private FunctionActivationData functionActivation; //Refatorar
     //Dados de execução do treinamento
     //Feedfoward
     private ArrayList<Double> inputsValues;//ok
@@ -44,7 +48,6 @@ public class Perceptron extends NeuralNetwork implements Serializable {
     //Report
     private ArrayList<Perceptron> reports = new ArrayList<>();
     private int iterationsCount = 0;
-//    private int samplesCount;
 
     public Perceptron() {
 
@@ -77,10 +80,11 @@ public class Perceptron extends NeuralNetwork implements Serializable {
     }
 
     @Override
-    public void setStructure(String type, int nLayer, int nNeuron) {
+    public void setStructure(Type type, int nLayer, int nNeuron) {
         this.numberLayer = nLayer;
         this.numberNeuron = nNeuron;
-        if (type.equals("hidden")) {
+        String aux = type.getTypeName();
+        if (aux.equals("HIDDEN")) {
             System.out.println("Isso não é um perceptron!!");
             System.exit(0);
         }
@@ -90,13 +94,13 @@ public class Perceptron extends NeuralNetwork implements Serializable {
             System.exit(0);
         }
 
-        switch (type) {
-            case "input":
+        switch (aux) {
+            case "INPUT":
                 System.out.println("Camada sendo estruturada " + type);
                 Layer input = new Layer(nNeuron);
                 this.input = input;
                 break;
-            case "output":
+            case "OUTPUT":
                 System.out.println("Camada sendo estruturada " + type);
                 Layer output = new Layer(nNeuron);
                 this.output = output;
@@ -113,48 +117,74 @@ public class Perceptron extends NeuralNetwork implements Serializable {
     public void setInputValues(ArrayList inputValues) {
         this.samples = inputValues;
         this.inputsValues = inputValues;
-        System.out.println("Tamanho do input values " + inputValues.size());
-        System.out.println("Valores da camada de entrada: ");
+//        System.out.println("Tamanho do input values " + inputValues.size());
+//        System.out.println("Valores da camada de entrada: ");
+        System.out.println("AMOSTRAS DE TREINO!!");
         for (int i = 0; i < input.getNeuronsCount(); i++) {
             input.getNeurons().get(i).setInput(samples.get(sampleCount)[i]); //Exemplo apenas da primeira amostra
             System.out.println(input.getNeurons().get(i).getNetInput());
         }
+    }
 
+    public void setData(double[] data){
+//        System.out.println("Tamanho do input values " + inputValues.size());
+//        System.out.println("Valores da camada de entrada: ");
+        for (int i = 0; i < input.getNeuronsCount(); i++) {
+            input.getNeurons().get(i).setInput(data[i]); //Exemplo apenas da primeira amostra
+            System.out.println(input.getNeurons().get(i).getNetInput());
+        }
     }
 
     //Feedfoward
     @Override
     public void connectNeuronIncludingWeigth(double weigthValue) {
-        System.out.println("Conectando os neurônios");
+//        System.out.println("Conectando os neurônios");
         this.initWeightsValues = new ArrayList<>();
         for (int i = 0; i < input.getNeuronsCount(); i++) {
             initWeightsValues.add(i, weigthValue);
-            System.out.println(input.getNeurons().get(i).getNetInput());
+//            System.out.println(input.getNeurons().get(i).getNetInput());
             input.getNeurons().get(i).addInputConnection(output.getNeurons().get(0), weigthValue);
-            System.out.println("O neurônio " + input.getNeurons().get(i).getNetInput() + " tem conexão? " + input.getNeurons().get(i).hasInputConnections());
+//            System.out.println("O neurônio " + input.getNeurons().get(i).getNetInput() + " tem conexão? " + input.getNeurons().get(i).hasInputConnections());
         }
     }
 
     public void checkNextSamples() {
         System.out.println("Checando próximas amostras...");
-        if (samplesCount != samples.size()) {
-            System.out.println("count: " + samplesCount + " samples size: " + samples.size());
+        if (samplesCountAux != samples.size()) {
+            System.out.println("count: " + samplesCountAux + " samples size: " + samples.size());
             System.out.println("Proximas amostras encontradas");
             System.out.println("Começando o treinamento!");
             sampleCount++;
             System.out.println("samples counter: " + sampleCount);
             setInputValues(samples);
             //connectNeuronIncludingWeigth(0); //Todo verificar os pesos
-            samplesCount++;
+            samplesCountAux++;
             training();
         } else {
-            System.out.println("Não existe próximas camadas, treinamento finalizado!");
+            System.out.println("Iniando a próxima época");
+            epoch++;
+            System.out.println("numero de epocas: " + epoch);
+//            samplesCountAux = 0;
+            if (trainingCount > 0) {
+                this.sampleCount = 0;
+                this.samplesCountAux = 0;
+                setInputValues(samples);
+            }
+            while (trainingCount > 0) {
+                System.out.println("Sample Count: " + sampleCount);
+                System.out.println("Training Count: " + trainingCount);
+//                sampleCount++;
+                samplesCountAux++;
+                this.trainingCount = 0;
+                training();
+            }
+            this.sampleCount = 0;
         }
     }
 
     public void start() {
         System.out.println("Start Perceptron!!");
-        output.getNeurons().get(0).setOutput(FunctionActivation.degrau(sum()));
+        selectFunctionActivation();
         System.out.println("Valor do neurônio de saída: " + output.getNeurons().get(0).getOutput());
         if (output.getNeurons().get(0).getOutput() == predict) {
             System.out.println("Valor da saída: " + output.getNeurons().get(0).getOutput());
@@ -167,17 +197,18 @@ public class Perceptron extends NeuralNetwork implements Serializable {
 
     public void training() {
         System.out.println("Start Perceptron!!");
-        output.getNeurons().get(0).setOutput(FunctionActivation.degrau(sum()));
+        selectFunctionActivation();
         System.out.println("Valor do neurônio de saída: " + output.getNeurons().get(0).getOutput());
         //Primeira iteração
         reportStart();
         while (output.getNeurons().get(0).getOutput() != predict) {
             System.out.println("A rede precisa de treinamento, resultado não corresponde com o esperado");
-            System.out.println("iniciando treinamento...");
+            System.out.println("INICIANDO TREINAMENTO");
             backPropagation();
-            output.getNeurons().get(0).setOutput(FunctionActivation.degrau(sum()));
+            selectFunctionActivation();
             System.out.println("Valor do neurônio de saída: " + output.getNeurons().get(0).getOutput());
             predictStatus = false;
+            trainingCount++;
             reportTraining();
         }
         predictStatus = true;
@@ -185,42 +216,50 @@ public class Perceptron extends NeuralNetwork implements Serializable {
         checkNextSamples();
     }
 
+    public void selectFunctionActivation(){
+        if(getFunctionActivaion().name().equals("DEGRAU")) {
+            output.getNeurons().get(0).setOutput(FunctionActivation.degrau(sum()));
+        }else if(getFunctionActivaion().name().equals("SIGMOID")){
+            output.getNeurons().get(0).setOutput(FunctionActivation.sigmoid(sum()));
+        }
+    }
+
     public double sum() {
-        System.out.println("Realizando a somatória...");
+//        System.out.println("Realizando a somatória...");
         double aux = 0;
         for (int i = 0; i < input.getNeuronsCount(); i++) {
             aux += (input.getNeurons().get(i).getNetInput() * input.getNeurons().get(i).getInputConnections().get(0).getWeight().getValue());
         }
         aux = aux + bias;
-        System.out.println("Resultado da somatória: " + aux);
+//        System.out.println("Resultado da somatória: " + aux);
         return aux;
     }
 
     public void backPropagation() {
         this.error = errorCalc(predict, output.getNeurons().get(0).getOutput());
-        System.out.println("Valor do erro..." + error);
-        System.out.println("Cálculo variação do peso...");
+//        System.out.println("Valor do erro..." + error);
+//        System.out.println("Cálculo variação do peso...");
         this.deltaW = new ArrayList<>();
         for (int i = 0; i < input.getNeuronsCount(); i++) {
             deltaW.add(i, deltaWeigthCalc(error, learningRate, input.getNeurons().get(i).getNetInput()));
-            System.out.println("Valores inseridos dentro da lista deltaW: " + deltaW.get(i));
+//            System.out.println("Valores inseridos dentro da lista deltaW: " + deltaW.get(i));
         }
         setDeltaWeightsValues(deltaW); //report
-        System.out.println("Cálculo variação do bias...");
+//        System.out.println("Cálculo variação do bias...");
         this.deltaB = deltaBiasCalc(error, learningRate);
         setDeltaBias(deltaB); //report
-        System.out.println("Criação do bias..." + deltaB);
-        System.out.println("Calculando novos pesos...");
+//        System.out.println("Criação do bias..." + deltaB);
+//        System.out.println("Calculando novos pesos...");
         this.newWeightsValues = new ArrayList<>();
         for (int i = 0; i < input.getNeuronsCount(); i++) {
             input.getNeurons().get(i).getInputConnections().get(0).getWeight().setValue(newWeightCalc(input.getNeurons().get(i).getInputConnections().get(0).getWeight().getValue(), deltaW.get(i)));
-            System.out.println("Valores dos novos pesos: " + input.getNeurons().get(i).getInputConnections().get(0).getWeight().getValue());
+//            System.out.println("Valores dos novos pesos: " + input.getNeurons().get(i).getInputConnections().get(0).getWeight().getValue());
             this.newWeightsValues.add(i, newWeightCalc(input.getNeurons().get(i).getInputConnections().get(0).getWeight().getValue(), deltaW.get(i))); //report
         }
-        System.out.println("Novo bias...");
+//        System.out.println("Novo bias...");
         this.bias = newBiasCalc(bias, deltaB);
         setNewBias(bias); //report
-        System.out.println("Valor do novo bias..." + bias);
+//        System.out.println("Valor do novo bias..." + bias);
     }
 
     public void reportStart() {
@@ -247,7 +286,7 @@ public class Perceptron extends NeuralNetwork implements Serializable {
         //Demais iterações
         iterationsCount++;
         reports.add(iterationsCount, pTraining);
-        System.out.println("Numero de interações " + iterationsCount + " Tamanho do arraylist " + reports.size());
+//        System.out.println("Numero de interações " + iterationsCount + " Tamanho do arraylist " + reports.size());
     }
 
 //    *******Getter's and Setter's
@@ -396,12 +435,12 @@ public class Perceptron extends NeuralNetwork implements Serializable {
         this.newBias = newBias;
     }
 
-    public String getFunctionActivaion() {
+    public FunctionActivationData getFunctionActivaion() {
         return functionActivation;
     }
 
     @Override
-    public void setFunctionActivation(String functionActivation) {
+    public void setFunctionActivation(FunctionActivationData functionActivation) {
         this.functionActivation = functionActivation;
     }
 

@@ -3,42 +3,41 @@ package main;
 import core.*;
 import network.Mlp;
 import network.Perceptron;
+import utils.FunctionActivationData;
+import utils.Type;
 
 import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
-
         //Perceptron
-        NeuralNetwork nn = new Perceptron(0.1, 1, 0);
-        nn.setStructure("input", 1, 2);
-        nn.setStructure("output", 1, 1);
-        nn.setFunctionActivation("Degrau");
-        double sample[] = {0, 1};
+        NeuralNetwork nn = new Perceptron(0.01, 1, 0);
+        nn.setStructure(Type.INPUT, 1, 2);
+        nn.setStructure(Type.OUTPUT, 1, 1);
+        nn.setFunctionActivation(FunctionActivationData.DEGRAU);
+        double sample1[] = {0, 1};
         double sample2[] = {1, 0};
         ArrayList<double[]> list = new ArrayList<>();
-        list.add(0, sample);
+        list.add(0, sample1);
         list.add(1, sample2);
-//        list.add(2, sample3);
         nn.setInputValues(list);
         nn.connectNeuronIncludingWeigth(0);
         nn.training();
-//        nn.save("rede.rn");
+        nn.save("rede.rn");
         //Perceptron start
-//        NeuralNetwork perceptron = NeuralNetwork.load("rede-perceptron.rn");
-//        double sample3[] = {0, 1};
-//        ArrayList<double[]> list2 = new ArrayList<>();
-//        list2.add(0, sample3);
-//        perceptron.setInputValues(list2);
+//        NeuralNetwork perceptron = NeuralNetwork.load("rede.rn");
+//        double data1[] = {0, 0};
+//        perceptron.setData(data1);
 //        perceptron.start();
+
 
 
         //MLP treinamento
 //        NeuralNetwork nn2 = new Mlp(0.1, 0, 0);
-//        nn2.setStructure("input", 1, 2);
-//        nn2.setStructure("hidden", 1, 2);
-//        nn2.setStructure("output", 1, 1);
+//        nn2.setStructure(Type.INPUT, 1, 2);
+//        nn2.setStructure(Type.HIDDEN, 1, 2);
+//        nn2.setStructure(Type.OUTPUT, 1, 1);
 //        double sample3[] = {0, 1};
 //        double sample4[] = {1, 0};
 //        ArrayList<double[]> list2 = new ArrayList<>();
@@ -61,6 +60,6 @@ public class Main {
         //Teste do report
         System.out.println("Teste dos dados: " + nn.getReports().get(0).getOutputValue());
         System.out.println("Teste dos dados: " + nn.getReports().get(1).getOutputValue());
-        System.out.println("Teste dos dados: " + nn.getReports().get(2).getOutputValue());
+//        System.out.println("Teste dos dados: " + nn.getReports().get(2).getOutputValue());
     }
 }

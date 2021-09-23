@@ -1,6 +1,7 @@
 package core;
 
 import network.Perceptron;
+import utils.FunctionActivationData;
 import utils.Report;
 
 import java.io.*;
@@ -227,7 +228,7 @@ public class NeuralNetwork implements Serializable {
 
     //TODO
 
-    public void setStructure(String type, int nLayer, int nNeuron) {
+    public void setStructure(Type type, int nLayer, int nNeuron) {
 
 
     }
@@ -261,7 +262,7 @@ public class NeuralNetwork implements Serializable {
 
     }
 
-    public void training(){
+    public void training() {
 
     }
 
@@ -325,7 +326,7 @@ public class NeuralNetwork implements Serializable {
         return null;
     }
 
-    public void setFunctionActivation(String functionActivation) {
+    public void setFunctionActivation(FunctionActivationData functionActivation) {
 
     }
 
@@ -335,5 +336,9 @@ public class NeuralNetwork implements Serializable {
 
     public ArrayList<Perceptron> getReports() {
         return null;
+    }
+
+    public void setData(double[] data) {
+
     }
 }

@@ -5,6 +5,7 @@ import core.NeuralNetwork;
 import core.Neuron;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
@@ -42,23 +43,24 @@ public class Mlp extends NeuralNetwork implements Serializable {
     }
 
     @Override
-    public void setStructure(String type, int nLayer, int nNeuron) {
+    public void setStructure(Type type, int nLayer, int nNeuron) {
+        String aux = type.getTypeName();
         if (nLayer <= 0 || nNeuron <= 0) {
             System.out.println("Ops, algo errado no numero de camadas/neurônios");
             System.exit(0);
         }
-        switch (type) {
-            case "input":
+        switch (aux) {
+            case "INPUT":
                 System.out.println("Camada sendo estruturada " + type);
                 Layer input = new Layer(nNeuron);
                 this.input = input;
                 break;
-            case "output":
+            case "OUTPUT":
                 System.out.println("Camada sendo estruturada " + type);
                 Layer output = new Layer(nNeuron);
                 this.output = output;
                 break;
-            case "hidden":
+            case "HIDDEN":
                 System.out.println("Camada sendo estruturada " + type);
                 if (nLayer > 1) {
                     hiddens = new ArrayList<>();
@@ -152,7 +154,7 @@ public class Mlp extends NeuralNetwork implements Serializable {
         while (auxHidden < hidden.getNeuronsCount()) {
             for (int i = 0; i < input.getNeuronsCount(); i++) {
                 aux += input.getNeurons().get(i).getNetInput() * input.getNeurons().get(i).getInputConnections().get(auxHidden).getWeight().getValue();
-                System.out.println("Valore da variavel aux da oculta: " + aux);
+                System.out.println("Valor da variavel aux da oculta: " + aux);
             }
 //            hiddenS.add(auxHidden, aux + bias);
 //            System.out.println("Valores da somatoria da camada oculta: " + hiddenS.get(auxHidden));
