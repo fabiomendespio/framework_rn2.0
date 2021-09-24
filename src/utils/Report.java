@@ -18,4 +18,10 @@ public class Report {
     public void setReports(ArrayList<Perceptron> reports) {
         this.reports = reports;
     }
+
+    //Todo Jean - Desenvoler o front nessa função
+    public static void report(ArrayList<Perceptron> r){
+        r.size();
+
+    }
 }

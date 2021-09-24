@@ -341,4 +341,9 @@ public class NeuralNetwork implements Serializable {
     public void setData(double[] data) {
 
     }
+
+    public void report(ArrayList<Perceptron> reports){
+
+    }
+
 }

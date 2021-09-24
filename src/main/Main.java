@@ -4,6 +4,7 @@ import core.*;
 import network.Mlp;
 import network.Perceptron;
 import utils.FunctionActivationData;
+import utils.Report;
 import utils.Type;
 
 import java.util.ArrayList;
@@ -26,10 +27,10 @@ public class Main {
         nn.training();
         nn.save("rede.rn");
         //Perceptron start
-//        NeuralNetwork perceptron = NeuralNetwork.load("rede.rn");
-//        double data1[] = {0, 0};
-//        perceptron.setData(data1);
-//        perceptron.start();
+        NeuralNetwork perceptron = NeuralNetwork.load("rede.rn");
+        double data1[] = {0, 0};
+        perceptron.setData(data1);
+        perceptron.start();
 
 
 
@@ -56,10 +57,13 @@ public class Main {
 //        mlp.setInputValues(inputs);
 //        mlp.start();
 
-
         //Teste do report
-        System.out.println("Teste dos dados: " + nn.getReports().get(0).getOutputValue());
-        System.out.println("Teste dos dados: " + nn.getReports().get(1).getOutputValue());
+//        System.out.println("Teste dos dados: " + nn.getReports().get(0).getFunctionActivaion());
+//        System.out.println("Teste dos dados: " + nn.getReports().get(1).getOutputValue());
 //        System.out.println("Teste dos dados: " + nn.getReports().get(2).getOutputValue());
+
+
+        //Todo - Fazer relatório em HTML com os dados passados pelo parâmetro
+        Report.report(nn.getReports());
     }
 }

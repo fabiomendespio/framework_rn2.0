@@ -289,6 +289,13 @@ public class Perceptron extends NeuralNetwork implements Serializable {
 //        System.out.println("Numero de interações " + iterationsCount + " Tamanho do arraylist " + reports.size());
     }
 
+//    //Todo Jean - Desenvoler o front nessa função
+//    @Override
+//    public void report(ArrayList<Perceptron> r){
+//
+//
+//    }
+
 //    *******Getter's and Setter's
 
     public ArrayList<double[]> getSamplesValues() {
@@ -446,6 +453,14 @@ public class Perceptron extends NeuralNetwork implements Serializable {
 
     public ArrayList<Perceptron> getReports() {
         return reports;
+    }
+
+    public int getEpoch() {
+        return epoch;
+    }
+
+    public void setEpoch(int epoch) {
+        this.epoch = epoch;
     }
 
     public void setReports(ArrayList<Perceptron> reports) {
