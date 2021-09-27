@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Neuron implements Serializable, Cloneable {
+public class Neuron implements Serializable {
 
     /**
      * Parent layer do neuron
@@ -88,12 +88,7 @@ public class Neuron implements Serializable, Cloneable {
     }
 
 
-    /**
-     * Verifique a conexão com o neurônio
-     *
-     * @param neuron conexão do Neuron a ser verificada
-     * @return true se houver conexão de saída, false caso contrário
-     */
+
 
     public boolean hasOutputConnectionTo(Neuron toNeuron) {
         for (Connection connection : outConnections) {
@@ -201,12 +196,7 @@ public class Neuron implements Serializable, Cloneable {
     }
 
 
-    /**
-     * Define a referência à camada pai para este neurônio (camada na qual o neurônio
-     * está localizado)
-     *
-     * @param referência pai na camada em que a célula está localizada
-     */
+
     public void setParentLayer(Layer parent) {
         this.parentLayer = parent;
     }

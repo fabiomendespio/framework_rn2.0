@@ -2,6 +2,7 @@ package network;
 
 import core.*;
 import utils.FunctionActivationData;
+import utils.Graph;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -97,13 +98,11 @@ public class Perceptron extends NeuralNetwork implements Serializable {
         switch (aux) {
             case "INPUT":
                 System.out.println("Camada sendo estruturada " + type);
-                Layer input = new Layer(nNeuron);
-                this.input = input;
+                this.input = new Layer(nNeuron);
                 break;
             case "OUTPUT":
                 System.out.println("Camada sendo estruturada " + type);
-                Layer output = new Layer(nNeuron);
-                this.output = output;
+                this.output = new Layer(nNeuron);
                 break;
             default:
                 System.out.println("Você não utilizou nem input ou output como tipo da camada");

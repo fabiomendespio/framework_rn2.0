@@ -4,6 +4,7 @@ import core.*;
 import network.Mlp;
 import network.Perceptron;
 import utils.FunctionActivationData;
+import utils.Graph;
 import utils.Report;
 import utils.Type;
 
@@ -13,24 +14,36 @@ public class Main {
 
     public static void main(String[] args) {
         //Perceptron
-        NeuralNetwork nn = new Perceptron(0.01, 1, 0);
-        nn.setStructure(Type.INPUT, 1, 2);
-        nn.setStructure(Type.OUTPUT, 1, 1);
-        nn.setFunctionActivation(FunctionActivationData.DEGRAU);
-        double sample1[] = {0, 1};
-        double sample2[] = {1, 0};
-        ArrayList<double[]> list = new ArrayList<>();
-        list.add(0, sample1);
-        list.add(1, sample2);
-        nn.setInputValues(list);
-        nn.connectNeuronIncludingWeigth(0);
-        nn.training();
-        nn.save("rede.rn");
+//        NeuralNetwork nn = new Perceptron(0.01, 1, 0);
+//        nn.setStructure(Type.INPUT, 1, 2);
+//        nn.setStructure(Type.OUTPUT, 1, 1);
+//        nn.setFunctionActivation(FunctionActivationData.DEGRAU);
+//        double sample1[] = {0, 1};
+//        double sample2[] = {1, 0};
+//        ArrayList<double[]> list = new ArrayList<>();
+//        list.add(0, sample1);
+//        list.add(1, sample2);
+//        nn.setInputValues(list);
+//        nn.connectNeuronIncludingWeigth(0);
+//        nn.training();
+//        nn.save("rede.rn");
+//
+//
         //Perceptron start
-        NeuralNetwork perceptron = NeuralNetwork.load("rede.rn");
-        double data1[] = {0, 0};
-        perceptron.setData(data1);
-        perceptron.start();
+//        NeuralNetwork perceptron = NeuralNetwork.load("rede.rn");
+//        double data1[] = {0, 0};
+//        perceptron.setData(data1);
+//        perceptron.start();
+//
+            Graph.createGraph();
+
+
+
+
+
+
+
+
 
 
 
@@ -64,6 +77,6 @@ public class Main {
 
 
         //Todo - Fazer relatório em HTML com os dados passados pelo parâmetro
-        Report.report(nn.getReports());
+//        Report.report(nn.getReports());
     }
 }
