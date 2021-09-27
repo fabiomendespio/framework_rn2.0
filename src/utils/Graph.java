@@ -89,29 +89,19 @@ public class Graph {
         // array de pontos do grafico
         List<Point> Points = new ArrayList<>();
         for (int i = 0; i < value.size(); i++) {
-            int x1 = (int) (i * xScale + 50);
-            int y1 = (int) ((getMaxValue() - value.get(i)) * yScale + 50);
-            Points.add(new Point(x1, y1));
+            Points.add(new Point((int) (i * xScale + 50), (int) ((getMaxValue() - value.get(i)) * yScale + 50)));
         }
 
         // desenhando os pontos
         render.setColor(Color.RED);
-        for (Point point : Points) {
-            int x = (int) (point.x - 7.5 / 2);
-            int y = (int) (point.y - 7.5 / 2);
-            int ovalW = (int) 7.5;
-            int ovalH = (int) 7.5;
-            render.fillOval(x, y, ovalW, ovalH);
+        for (int i = 0; i < Points.size(); i++) {
+            render.fillOval(Points.get(i).x - 5/2, Points.get(i).y - 5/2, 5, 5);
         }
 
         // desenhando as linhas entre os pontos
         render.setColor(Color.BLUE);
         for (int i = 0; i < Points.size() - 1; i++) {
-            int x1 = Points.get(i).x;
-            int y1 = Points.get(i).y;
-            int x2 = Points.get(i + 1).x;
-            int y2 = Points.get(i + 1).y;
-            render.drawLine(x1, y1, x2, y2);
+            render.drawLine(Points.get(i).x, Points.get(i).y, Points.get(i + 1).x, Points.get(i + 1).y);
         }
 
         // salvando a imagem
